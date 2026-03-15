@@ -1,0 +1,75 @@
+.sidebar {
+    width: 250px;
+    background: #0d1117;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 20px;
+    }
+
+    .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        position: relative;
+
+        .avatar-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+            filter: blur(15px); // Create a soft shine
+            z-index: -1; // Push behind the avatar
+        }
+
+        img {
+            width: 70px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+        }
+
+        p {
+            font-weight: bold;
+        }
+
+        span {
+            background: #6cc644;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+    }
+
+    nav ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            margin: 10px 0;
+            cursor: pointer;
+        }
+    }
+
+    .logout {
+        background: none;
+        color: #fff;
+        border: 1px solid #fff;
+        padding: 10px 25%;
+        border-radius: 5px;
+        cursor: pointer;
+    
+  }
+}

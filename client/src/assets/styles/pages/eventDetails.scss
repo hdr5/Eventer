@@ -1,0 +1,307 @@
+@import '../../../assets/styles/variables';
+
+/* ================= PAGE ================= */
+
+.event-details-page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  padding: 3rem 2rem;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+
+  background: $bg-main;
+
+  min-width: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* ================= HERO ================= */
+
+.event-header {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+
+.image-slider {
+  width: 100%;
+  height: 480px;
+
+  border-radius: $radius;
+  overflow: hidden;
+
+  box-shadow: $shadow-lg;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: $transition;
+    display: block;
+  }
+
+  &:hover img {
+    transform: scale(1.03);
+  }
+}
+
+/* ================= NAV BUTTONS ================= */
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+  border: 1px solid $border-glass;
+
+  background: $glass;
+  backdrop-filter: blur(12px);
+
+  color: $text-main;
+  cursor: pointer;
+
+  transition: $transition;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: $glass-strong;
+    box-shadow: $shadow-sm;
+  }
+
+  &.left {
+    left: 1rem;
+  }
+
+  &.right {
+    right: 1rem;
+  }
+}
+
+/* ================= FAVORITE ================= */
+
+.heart-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+
+  font-size: 1.8rem;
+  background: $glass;
+  border-radius: 50%;
+  border: 1px solid $border-glass;
+
+  padding: .5rem;
+  cursor: pointer;
+
+  transition: $transition;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: $glass-strong;
+  }
+
+  &.liked {
+    transform: scale(1.15);
+  }
+}
+
+/* ================= MAIN CARD ================= */
+
+.event-content {
+  background: $glass;
+  border: 1px solid $border-glass;
+  backdrop-filter: blur(20px);
+
+  border-radius: $radius;
+  padding: 2.5rem;
+
+  box-shadow: $shadow-md;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ================= TYPOGRAPHY ================= */
+
+.event-category {
+  color: $accent;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: .85rem;
+}
+
+.event-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+
+  background: linear-gradient(90deg, $accent, $primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.event-description {
+  color: $text-soft;
+  line-height: 1.7;
+  font-size: 1.05rem;
+
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* ================= INFO GRID ================= */
+
+.event-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.event-info p {
+  background: $bg-secondary;
+  border: 1px solid $border-light;
+
+  padding: 1rem;
+  border-radius: $radius;
+
+  color: $text-medium;
+  font-weight: 500;
+
+  transition: $transition;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+
+  &:hover {
+    border-color: $primary;
+    box-shadow: $shadow-sm;
+  }
+}
+
+/* ================= PROGRESS ================= */
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+
+  background: $bg-secondary;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, $primary, $accent);
+  transition: $transition;
+}
+
+.progress-text {
+  color: $text-soft;
+  font-size: .85rem;
+}
+
+/* ================= BUTTON ================= */
+
+.register-btn {
+  align-self: center;
+  width: fit-content;
+
+  padding: .9rem 2.5rem;
+  border-radius: 999px;
+  border: none;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: $transition;
+
+  white-space: nowrap;
+
+  &.register {
+    background: linear-gradient(90deg, $primary, $accent);
+    color: $secondary-color;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &.cancel {
+    background: transparent;
+    border: 1px solid $primary;
+    color: $primary;
+
+    &:hover {
+      background: $glass-strong;
+    }
+  }
+}
+
+/* ================= FOOTER ================= */
+
+.event-footer {
+  text-align: center;
+  color: $text-muted;
+  font-size: .9rem;
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: $small-screen) {
+
+  .event-details-page {
+    padding: 1.5rem 1rem;
+  }
+
+  .image-slider {
+    height: 260px;
+  }
+
+  .event-content {
+    padding: 1.6rem;
+  }
+
+  .event-info {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,424 @@
+// @import "../../assets/styles/variables";
+
+
+// .event-card {
+//   display: flex;
+//   flex-direction: column;
+//   overflow: hidden;
+
+//   background: $glass-strong; // יותר חזק כדי להפריד מתחתית
+//   border: 1px solid $border-glass;
+//   border-radius: $radius;
+//   transition: $transition;
+//   box-shadow: $shadow-md;
+//   min-height: 500px; // אחידות גבוהה יותר
+//   max-height: 550px;
+
+//   &:hover {
+//     transform: translateY(-6px);
+//     box-shadow: $shadow-lg;
+//   }
+
+//   /* ================= IMAGE ================= */
+//   .event-image-wrapper {
+//     flex-shrink: 0;
+//     width: 100%;
+//     height: 230px;
+//     overflow: hidden;
+//     position: relative;
+//     border-bottom-left-radius: $radius;
+//     border-bottom-right-radius: $radius;
+
+//     .event-image {
+//       width: 100%;
+//       height: 100%;
+//       object-fit: cover;
+//       transition: $transition;
+//     }
+
+//     .favorite-btn {
+//       position: absolute;
+//       top: 12px;
+//       right: 12px;
+//     }
+//   }
+
+//   /* ================= CONTENT ================= */
+//   .event-content {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 0.5rem;
+//     padding: 1.4rem 1.2rem;
+//     justify-content: space-between;
+//     cursor: pointer;
+
+//     .event-title {
+//       font-size: $font-lg;
+//       font-weight: 700;
+//       color: $text-main;
+//       line-height: 1.2em;
+//       overflow-wrap: break-word;
+//       max-height: 3.6em; // מקסימום 3 שורות
+//     }
+
+//     .event-meta {
+//       display: flex;
+//       align-items: center;
+//       gap: 0.5rem;
+//       color: $text-soft;
+//       font-size: $font-sm;
+//       flex-wrap: wrap;
+
+//       .icon {
+//         color: $accent;
+//       }
+
+//       &.price {
+//         color: $primary;
+//         font-weight: 600;
+//       }
+//     }
+//   }
+
+//   /* ================= FOOTER ================= */
+//   .event-footer {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     padding: 1rem 1.2rem;
+//     gap: 1rem;
+
+//     .register-btn {
+//       flex: 1;
+//       border-radius: 50px;
+//       padding: 0.6rem 1.2rem;
+//       font-weight: 600;
+//       transition: $transition;
+//       text-align: center;
+//       white-space: nowrap;
+//     }
+
+//     .progress-ring {
+//       flex-shrink: 0;
+//       width: 50px;
+//       height: 50px;
+//       border-radius: 50%;
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       background: conic-gradient($primary calc(var(--progress) * 1%), $bg-secondary 0);
+
+//       .progress-inner {
+//         width: 40px;
+//         height: 40px;
+//         border-radius: 50%;
+//         background: $bg-main;
+//         color: $text-main;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         font-size: $font-xs;
+//         font-weight: 600;
+//         text-align: center;
+//         word-break: break-word;
+//       }
+//     }
+//   }
+// }
+
+// /* ================= GRID ================= */
+// .event-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+//   gap: 2.5rem;
+//   align-items: stretch;
+// }
+
+
+@import "../../assets/styles/variables";
+
+/* ================= CARD ================= */
+
+.event-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  background: $glass-strong;
+  border: 1px solid $border-glass;
+  border-radius: $radius;
+
+  backdrop-filter: blur(18px);
+
+  transition: $transition;
+  box-shadow: $shadow-md;
+
+  min-height: 500px;
+  max-height: 550px;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-lg;
+  }
+
+  &:hover .event-image {
+    transform: scale(1.06);
+  }
+
+  /* ================= IMAGE ================= */
+
+  .event-image-wrapper {
+    flex-shrink: 0;
+    width: 100%;
+    height: 230px;
+    overflow: hidden;
+    position: relative;
+
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;
+
+    cursor: pointer;
+
+    .event-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+
+    /* ===== FAVORITE ===== */
+
+    .favorite-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+
+      width: 36px;
+      height: 36px;
+
+      border-radius: 50%;
+
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(8px);
+
+      border: none;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: white;
+      font-size: 1rem;
+
+      cursor: pointer;
+
+      transition: $transition;
+
+      &:hover {
+        transform: scale(1.15);
+      }
+
+      &.liked {
+        color: #ff4d6d;
+      }
+    }
+
+    /* ===== DELETE ===== */
+
+    .delete-btn {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+
+      width: 36px;
+      height: 36px;
+
+      border-radius: 50%;
+
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(8px);
+
+      border: none;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #ff4d4d;
+      font-size: 0.9rem;
+
+      cursor: pointer;
+
+      transition: $transition;
+
+      &:hover {
+        background: #ff4d4d;
+        color: white;
+        transform: scale(1.15);
+      }
+    }
+  }
+
+  /* ================= CONTENT ================= */
+
+  .event-content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.7rem;
+
+    padding: 1.4rem 1.2rem;
+
+    cursor: pointer;
+
+    .event-title {
+      font-size: $font-lg;
+      font-weight: 700;
+      color: $text-main;
+
+      line-height: 1.25em;
+
+      max-height: 3.7em;
+      overflow: hidden;
+    }
+
+    .event-meta {
+      display: flex;
+      align-items: center;
+
+      gap: 0.5rem;
+
+      color: $text-soft;
+      font-size: $font-sm;
+
+      .icon {
+        color: $accent;
+        font-size: 0.9rem;
+      }
+
+      &.price {
+        color: $primary;
+        font-weight: 600;
+      }
+    }
+  }
+
+  /* ================= FOOTER ================= */
+
+  .event-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1rem 1.2rem;
+
+    gap: 1rem;
+
+    border-top: 1px solid $border-glass;
+
+    /* REGISTER BUTTON */
+
+    .register-btn {
+      flex: 1;
+
+      border-radius: 50px;
+
+      padding: 0.65rem 1.2rem;
+
+      font-weight: 600;
+      font-size: $font-sm;
+
+      border: none;
+
+      cursor: pointer;
+
+      transition: $transition;
+
+      text-align: center;
+
+      &.register {
+        background: $primary;
+        color: white;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 18px rgba($primary, .35);
+        }
+      }
+
+      &.cancel {
+        background: rgba($accent, .15);
+        color: $accent;
+
+        &:hover {
+          background: $accent;
+          color: white;
+        }
+      }
+
+      &.disabled {
+        background: $bg-secondary;
+        color: $text-soft;
+        cursor: not-allowed;
+      }
+    }
+
+    /* ================= PROGRESS ================= */
+
+    .progress-ring {
+      flex-shrink: 0;
+
+      width: 52px;
+      height: 52px;
+
+      border-radius: 50%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        conic-gradient(
+          $primary calc(var(--progress) * 1%),
+          $bg-secondary 0
+        );
+
+      .progress-inner {
+
+        width: 40px;
+        height: 40px;
+
+        border-radius: 50%;
+
+        background: $bg-main;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: $font-xs;
+        font-weight: 600;
+
+        color: $text-main;
+
+        text-align: center;
+      }
+    }
+  }
+}
+
+/* ================= GRID ================= */
+
+.event-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+
+  gap: 2.2rem;
+
+  align-items: stretch;
+}

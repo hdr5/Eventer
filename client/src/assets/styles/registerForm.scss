@@ -1,0 +1,136 @@
+@import "../../assets/styles/variables";
+
+.form {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $bg-main;
+  padding: 40px 20px;
+}
+
+// Card
+.form-card {
+  width: 100%;
+  max-width: 420px;
+  background: $bg-secondary;
+  border-radius: $radius;
+  padding: 40px 35px;
+  box-shadow: $shadow-lg;
+  border: 1px solid $border-glass;
+  backdrop-filter: blur(10px);
+  transition: transform $transition, box-shadow $transition;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow-md;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $text-main;
+    letter-spacing: 0.5px;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  label {
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: $text-soft;
+    font-weight: 500;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid $border-light;
+    background: $background-light;
+    color: $text-main;
+    font-size: 0.95rem;
+    transition: all $transition;
+
+    &::placeholder {
+      color: $text-muted;
+    }
+
+    &:hover {
+      border-color: $primary-color;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.15);
+    }
+  }
+
+  // Submit Button
+  .button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 14px;
+    border: none;
+    background: $primary-color;
+    color: $secondary-color;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all $transition;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      background: $hover-color;
+      transform: translateY(-3px);
+      box-shadow: $shadow-md;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+// Error states
+.error-input {
+  border-color: $error-color !important;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(255, 77, 79, 0.15);
+  }
+}
+
+.error-message {
+  color: $error-color;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  margin-bottom: -5px;
+}
+
+// Redux error (login)
+.form-card p {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: $error-color;
+  text-align: center;
+}
+
+// Responsive
+@media (max-width: $small-screen) {
+  .form-card {
+    padding: 30px 20px;
+
+    &__title {
+      font-size: 1.5rem;
+    }
+  }
+}

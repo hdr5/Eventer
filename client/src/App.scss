@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import './assets/styles/variables';
+//APP.SCSS
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html, body {
+  background: $bg-main;
+  color: $text-main;
+}
+
+/* Layout */
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+}
+.page-wrapper {
+  padding-top: 120px; // רווח מהנאב
+  padding-bottom: 100px;
+  padding-left: 8%;
+  padding-right: 8%;
+  min-height: 100vh;
+}
+/* =========================
+   Global Button
+========================= */
+
+.button {
+  padding: 12px 28px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: $transition;
+  background: $primary;
+  color: white;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 106, 0, 0.35);
+  }
+}
+
+/* =========================
+   Footer
+========================= */
+
+.footer {
+  width: 100%;
+  padding: 70px 10% 40px;
+  margin-top: 120px;
+
+  background: $glass;
+  backdrop-filter: $blur-md;
+
+  border-top: 1px solid $border-glass;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  color: $text-soft;
+}
+
+/* ================= TOP ================= */
+
+.footer-top {
+  width: 100%;
+  max-width: 1200px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 40px;
+}
+
+.footer-top h3 {
+  font-size: $font-lg;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: $primary;
+}
+
+/* ================= LINKS ================= */
+
+.links {
+  display: flex;
+  gap: 28px;
+}
+
+.links a {
+  text-decoration: none;
+  font-size: $font-sm;
+  color: $text-soft;
+
+  transition: $transition;
+  position: relative;
+}
+
+.links a:hover {
+  color: $primary;
+}
+
+/* underline animation */
+
+.links a::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  bottom: -4px;
+
+  width: 0%;
+  height: 2px;
+
+  background: $primary;
+
+  transition: $transition;
+}
+
+.links a:hover::after {
+  width: 100%;
+}
+
+/* ================= BOTTOM ================= */
+
+.footer-bottom {
+  width: 100%;
+  max-width: 1200px;
+
+  padding-top: 20px;
+  border-top: 1px solid $border-light;
+
+  text-align: center;
+
+  font-size: $font-xs;
+  color: $text-muted;
+}
+
+
+
+.filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1.8rem 2.2rem;
+  margin-bottom: 3rem;
+
+  background: $glass;
+  border: 1px solid $border-glass;
+  border-radius: $radius;
+
+  backdrop-filter: blur(18px);
+  box-shadow: $shadow-md;
+}
+
+/* INPUT + SELECT */
+
+.filter-section input,
+.filter-section select {
+  flex: 1;
+
+  background: $bg-secondary;
+  border: 1px solid $border-glass;
+  border-radius: 50px;
+
+  padding: 0.85rem 1.3rem;
+
+  color: $text-main;
+  transition: $transition;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 18px rgba($primary, 0.35);
+  }
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  min-width: 220px;
+}
+
+.filter-item label {
+  color: $text-soft;
+  font-size: .85rem;
+  font-weight: 500;
+}

@@ -1,0 +1,572 @@
+// // @import "../../App.scss"; // Ensure this path is correct
+
+// // .user-list-container {
+// //     display: flex;
+// //     flex-direction: column;
+// //     min-height: 100vh; // Ensures full height
+// //     padding: 20px;
+// //     // background: #f8f9fa;
+// //     border-radius: 10px;
+// // }
+
+// // .user-list-header {
+// //     display: flex;
+// //     justify-content: space-between;
+// // }
+
+
+// // .icon {
+// //     background: none;
+// //     border: none;
+// //     width: 30px;
+// //     cursor: pointer;
+// //     transition: transform 0.3s ease;
+
+// //     &:hover {
+// //         transform: scale(1.2);
+// //         background: none;
+// //     }
+// // }
+
+// // .content {
+// //     flex: 1; // Allows the content to expand and push pagination down
+// //     overflow-y: auto;
+// // }
+
+// // .pagination {
+// //     display: flex;
+// //     justify-content: center;
+// //     padding: 10px 0;
+// //     bottom: 0;
+// //     z-index: 10;
+// // }
+
+
+// // // Input & Select Styles
+// // input,
+// // select {
+// //     width: 100%;
+// //     padding: 8px;
+// //     border: 1px solid #ccc;
+// //     border-radius: 4px;
+// //     font-size: 14px;
+// // }
+
+// // // View Mode Toggle
+// // .view-toggle {
+// //     display: flex;
+// //     justify-content: center;
+// //     margin-bottom: 10px;
+// // }
+
+// // // MUI Component Wrapper
+// // .mui_elements {
+// //     display: flex;
+// //     justify-content: center;
+// //     align-items: center;
+// //     min-height: 100px;
+// // }
+
+// // // Search Box
+// // .search-box {
+// //     display: flex;
+// //     justify-content: center;
+// //     margin-bottom: 20px;
+// // }
+
+// // // Table Styles
+// // .table-container {
+// //     background: white;
+// //     border-radius: 10px;
+// //     overflow: hidden;
+// //     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+// //     table {
+// //         width: 100%;
+// //         border-collapse: collapse;
+
+// //         th {
+// //             background: $primary-color; // Defined in App.scss
+// //             color: white;
+// //             padding: 12px;
+// //             text-align: left;
+// //             font-weight: 600;
+// //             text-transform: capitalize;
+// //         }
+
+// //         td {
+// //             padding: 10px;
+// //             border-bottom: 1px solid #ddd;
+// //         }
+
+// //         tr:hover {
+// //             background: rgba(0, 191, 255, 0.1);
+// //         }
+// //     }
+// // }
+
+// // // Grid View Styles
+// // .user-grid {
+// //     display: grid;
+// //     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+// //     gap: 20px;
+// //     padding: 10px;
+// // }
+
+// // // User Card Styling
+// // .user-info {
+// //     display: flex;
+// //     flex-direction: column;
+// //     gap: 5px;
+// //     font-size: 14px;
+
+// //     .user-name {
+// //         font-weight: bold;
+// //         color: $text-color;
+// //     }
+
+// //     .user-email,
+// //     .user-role {
+// //         color: darken($text-color, 20%);
+// //     }
+// // }
+
+// // // Action Buttons
+// // .action-buttons {
+// //     display: flex;
+// //     justify-content: flex-end;
+// //     margin-top: 10px;
+// // }
+
+// // button {
+// //     padding: 10px 16px;
+// //     border: none;
+// //     border-radius: 5px;
+// //     cursor: pointer;
+// //     font-size: 0.9rem;
+// //     font-weight: bold;
+// //     transition: all 0.3s ease;
+
+// //     &:hover {
+// //         opacity: 0.8;
+// //     }
+// // }
+
+// // // Responsive Design
+// // @media (max-width: $small-screen) {
+// //     .table-container {
+// //         overflow-x: auto;
+// //     }
+
+// //     .user-grid {
+// //         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+// //     }
+// // }
+// @import "../../assets/styles/variables";
+
+// // 🔹 User List Container
+// .user-list-container {
+//   display: flex;
+//   flex-direction: column;
+//   min-height: 100vh;
+//   padding: 20px;
+//   gap: 20px;
+//   background: $bg-main;
+//   color: $text-color;
+// }
+
+// // Header with Toggle & Export Buttons
+// .user-list-header {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   gap: 10px;
+
+// //   .MuiToggleButton-root {
+// //     color: $text-color;
+// //     border: 1px solid $border-light;
+// //     background: $background-light;
+// //     transition: all $transition;
+
+// //     &:hover {
+// //       background: $primary-color;
+// //       color: $secondary-color;
+// //     }
+
+// //     &.Mui-selected {
+// //       background: $primary-color;
+// //       color: $secondary-color;
+// //     }
+// //   }
+// @import "../../assets/styles/variables";
+
+// // 🔹 Custom Toggle Buttons (Tab Style)
+// .toggle-buttons {
+// //   display: flex;
+//   border-bottom: 1px solid $border-light;
+//   width: fit-content;
+//   background: $background-light;
+//   border-radius: $radius;
+//   overflow: hidden;
+
+//   button {
+//     flex-grow: 1;
+//     text-align: center;
+//     padding: 0.75rem 1.5rem;
+//     border: none;
+//     background: none;
+//     cursor: pointer;
+//     font-size: 1rem;
+//     position: relative;
+//     color: $text-medium;
+//     transition: color 0.3s ease;
+
+//     &:hover {
+//       color: $primary-color;
+//     }
+
+//     &::after {
+//       content: "";
+//       position: absolute;
+//       left: 0;
+//       bottom: 0;
+//       width: 100%;
+//       height: 3px;
+//       background: $border-color;
+//       border-radius: 2px;
+//       transition: background 0.3s ease;
+//     }
+
+//     &.active {
+//       font-weight: bold;
+//       color: $primary-color;
+
+//       &::after {
+//         background: $primary-color;
+//       }
+//     }
+//   }
+
+//   // Responsive
+//   @media (max-width: $small-screen) {
+//     flex-direction: column;
+
+//     button {
+//       &::after {
+//         height: 2px;
+//       }
+//     }
+//   }
+// }
+//   .excel-button, .pdf-button {
+//     background: transparent;
+//     border: none;
+//     cursor: pointer;
+
+//     img {
+//       width: 28px;
+//       transition: transform $transition;
+
+//       &:hover {
+//         transform: scale(1.2);
+//       }
+//     }
+//   }
+// }
+
+
+// .MuiTextField-root {
+//   margin: 0.5rem 0;
+//   input {
+//     background: $background-light;
+//     color: $text-color;
+//     border-radius: 10px;
+//   }
+// }
+
+// // Table View
+// .table-container {
+//   background: $background-light;
+//   border-radius: $radius;
+//   overflow: hidden;
+//   box-shadow: $shadow-sm;
+
+//   table {
+//     width: 100%;
+//     border-collapse: collapse;
+
+//     th {
+//       background: $bg-secondary;
+//       color: $text-color;
+//       font-weight: 600;
+//       padding: 12px;
+//       text-transform: capitalize;
+//     }
+
+//     td {
+//       padding: 10px;
+//       border-bottom: 1px solid $border-light;
+//     }
+
+//     tr:hover {
+//       background: $glass-strong;
+//     }
+//   }
+// }
+
+// // Grid View
+// .user-grid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+//   gap: 20px;
+//   padding: 10px;
+// }
+
+// // Pagination
+// .MuiPagination-root {
+//   display: flex;
+//   justify-content: center;
+//   margin-top: 10px;
+// }
+
+// // Responsive
+// @media (max-width: $small-screen) {
+//   .user-grid {
+//     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+//   }
+
+//   .table-container {
+//     overflow-x: auto;
+//   }
+// }
+
+
+@import "../../assets/styles/variables";
+
+/* ==============================
+   USER LIST CONTAINER
+============================== */
+
+.user-list-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+  gap: 20px;
+
+  background: $bg-main;
+  color: $text-main;
+}
+
+/* ==============================
+   HEADER
+============================== */
+
+.user-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ==============================
+   TOGGLE BUTTONS
+============================== */
+
+.toggle-buttons {
+  display: flex;
+  border-bottom: 1px solid $border-light;
+  background: $background-light;
+  border-radius: $radius;
+  overflow: hidden;
+
+  button {
+    padding: 0.7rem 1.4rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    color: $text-medium;
+
+    position: relative;
+
+    transition: $transition;
+
+    &:hover {
+      color: $primary;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+
+      left: 0;
+      bottom: 0;
+
+      width: 100%;
+      height: 3px;
+
+      background: transparent;
+      transition: $transition;
+    }
+
+    &.active {
+      color: $primary;
+      font-weight: 600;
+
+      &::after {
+        background: $primary;
+      }
+    }
+  }
+}
+
+/* ==============================
+   EXPORT BUTTONS
+============================== */
+
+.excel-button,
+.pdf-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  img {
+    width: 28px;
+
+    transition: transform $transition;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+/* ==============================
+   FILTER SECTION
+============================== */
+
+.filter-section {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 1.2rem;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1.4rem 1.6rem;
+
+  background: $glass;
+  border: 1px solid $border-glass;
+  border-radius: $radius;
+
+  backdrop-filter: blur(18px);
+  box-shadow: $shadow-md;
+}
+
+/* INPUT + SELECT */
+
+.filter-section input,
+.filter-section select {
+
+  flex: 1;
+
+  min-width: 200px;
+
+  background: $bg-secondary;
+
+  border: 1px solid $border-glass;
+  border-radius: 50px;
+
+  padding: 0.8rem 1.2rem;
+
+  color: $text-main;
+
+  transition: $transition;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 12px rgba($primary, .3);
+  }
+}
+
+/* ==============================
+   CONTENT
+============================== */
+
+.content {
+  flex: 1;
+}
+
+/* ==============================
+   TABLE
+============================== */
+
+.MuiTable-root {
+
+  background: $background-light;
+
+  th {
+    background: $bg-secondary;
+    color: $text-main;
+
+    font-weight: 600;
+  }
+
+  td {
+    border-bottom: 1px solid $border-light;
+  }
+
+  tr:hover {
+    background: $glass-strong;
+  }
+}
+
+/* ==============================
+   GRID VIEW
+============================== */
+
+.user-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  gap: 20px;
+}
+
+/* ==============================
+   PAGINATION
+============================== */
+
+.MuiPagination-root {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 20px;
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: $small-screen) {
+
+  .filter-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .user-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .MuiTableContainer-root {
+    overflow-x: auto;
+  }
+
+}

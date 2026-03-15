@@ -1,0 +1,259 @@
+// .user-card {
+//     background: #fff;
+//     border-radius: 10px;
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//     padding: 20px;
+//     transition: transform 0.2s ease, box-shadow 0.2s ease;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     text-align: center;
+//     gap: 10px;
+//     width: 100%;
+//     max-width: 300px;
+
+
+
+//     &:hover {
+//         transform: translateY(-5px);
+//         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+//     }
+
+//     &__name {
+//         font-size: 1.2rem;
+//         font-weight: bold;
+//         color: #333;
+//     }
+
+//     &__email {
+//         font-size: 0.9rem;
+//         color: #666;
+//     }
+
+//     &__role {
+//         font-size: 0.9rem;
+//         font-weight: bold;
+//         background: #00bfff;
+//         color: white;
+//         padding: 5px 10px;
+//         border-radius: 5px;
+//         display: inline-block;
+//         text-transform: capitalize;
+//     }
+
+//     &__actions {
+//         display: flex; // 🔹 Inline buttons
+//         gap: 10px;
+//         justify-content: center;
+//         margin-top: 10px;
+//         width: 100%;
+//     }
+
+//     button {
+//         padding: 10px 16px; // ✅ Slightly larger padding for better UX
+//         border: none;
+//         border-radius: 5px;
+//         cursor: pointer;
+//         font-size: 0.9rem;
+//         font-weight: bold;
+//         transition: all 0.3s ease;
+//         outline: none;
+//     }
+
+//     // ✅ Edit button - Red outline, fills on hover
+//     &__edit {
+//         background-color: white;
+//         border: 2px solid #dc3545;
+//         color: #dc3545;
+
+//         &:hover {
+//             background-color: #dc3545;
+//             color: white;
+//         }
+//     }
+
+//     // ✅ Delete button - Solid red
+//     &__delete {
+//         background: #dc3545;
+//         color: white;
+//         border: 2px solid #dc3545;
+
+//         &:hover {
+//             background: white;
+//             color: #dc3545;
+//         }
+//     }
+
+//     // ✅ Align buttons with space
+//     .action-buttons {
+//         display: flex;
+//         gap: 15px;
+//         justify-content: center;
+//         align-items: center;
+//     }
+
+// }
+
+// // Responsive adjustments
+// @media (max-width: 600px) {
+//     .user-card {
+//         max-width: 90%;
+//         padding: 15px;
+
+//         &__name {
+//             font-size: 1rem;
+//         }
+
+//         &__email {
+//             font-size: 0.8rem;
+//         }
+
+//         &__role {
+//             font-size: 0.8rem;
+//         }
+
+//         &__actions {
+//             flex-direction: column; // 🔹 Stack buttons on small screens
+//             gap: 5px;
+//         }
+
+//         button {
+//             font-size: 0.8rem;
+//             padding: 6px 10px;
+//         }
+//     }
+// }
+@import "../../assets/styles/variables";
+
+// 🔹 User Card
+.user-card {
+  background: $background-light;
+  border-radius: $radius;
+  box-shadow: $shadow-sm;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  transition: transform $transition, box-shadow $transition;
+  width: 100%;
+  max-width: 300px;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-md;
+  }
+
+  &__name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $text-color;
+  }
+
+  &__email {
+    font-size: 0.9rem;
+    color: $text-medium;
+  }
+
+  &__role {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: $secondary-color;
+    background: $primary-color;
+    padding: 4px 10px;
+    border-radius: 12px;
+    text-transform: capitalize;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+
+    button {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all $transition;
+      border: none;
+      outline: none;
+
+      &.edit {
+        background: transparent;
+        border: 2px solid $primary-color;
+        color: $primary-color;
+
+        &:hover {
+          background: $primary-color;
+          color: $secondary-color;
+        }
+      }
+
+      &.delete {
+        background: $error-color;
+        color: $secondary-color;
+        border: 2px solid $error-color;
+
+        &:hover {
+          background: transparent;
+          color: $error-color;
+        }
+      }
+
+      &.save {
+        background: $success-color;
+        color: $secondary-color;
+
+        &:hover {
+          background: lighten($success-color, 10%);
+        }
+      }
+
+      &.cancel {
+        background: $warning-color;
+        color: $secondary-color;
+
+        &:hover {
+          background: lighten($warning-color, 10%);
+        }
+      }
+    }
+  }
+
+  input, select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid $border-light;
+    background: $background-color;
+    color: $text-color;
+    font-size: 0.9rem;
+
+    &:focus {
+      outline: 2px solid $primary-color;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: $small-screen) {
+  .user-card {
+    max-width: 90%;
+    padding: 16px;
+
+    &__name { font-size: 1rem; }
+    &__email { font-size: 0.8rem; }
+    &__role { font-size: 0.75rem; }
+
+    &__actions {
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    input, select { font-size: 0.8rem; padding: 6px; }
+  }
+}

@@ -1,0 +1,229 @@
+@import '../../assets/styles/variables';
+
+/* ===============================
+   PAGE LAYOUT
+=================================*/
+
+.events-page {
+  background: $bg-main;
+  min-height: 100vh;
+  padding: 2rem 3rem;
+}
+
+/* ===============================
+   FILTER BAR
+=================================*/
+
+// .filter-section {
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 2rem;
+//   align-items: center;
+//   justify-content: space-between;
+
+//   padding: 1.8rem 2.2rem;
+//   margin-bottom: 3rem;
+
+//   background: $glass;
+//   border: 1px solid $border-glass;
+//   border-radius: $radius;
+
+//   backdrop-filter: blur(18px);
+//   box-shadow: $shadow-md;
+// }
+
+// /* INPUT + SELECT */
+
+// .filter-section input,
+// .filter-section select {
+//   flex: 1;
+
+//   background: $bg-secondary;
+//   border: 1px solid $border-glass;
+//   border-radius: 50px;
+
+//   padding: 0.85rem 1.3rem;
+
+//   color: $text-main;
+//   transition: $transition;
+
+//   &:focus {
+//     outline: none;
+//     border-color: $primary;
+//     box-shadow: 0 0 18px rgba($primary, 0.35);
+//   }
+// }
+
+// .filter-item {
+//   display: flex;
+//   flex-direction: column;
+//   gap: .4rem;
+//   min-width: 220px;
+// }
+
+// .filter-item label {
+//   color: $text-soft;
+//   font-size: .85rem;
+//   font-weight: 500;
+// }
+
+/* ===============================
+   EVENTS GRID
+=================================*/
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+.event-list-container {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2.5rem;
+}
+
+/* ===============================
+   FLOAT ADD BUTTON
+=================================*/
+
+.add-event-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+
+  width: 64px;
+  height: 64px;
+
+  border-radius: 50%;
+  border: none;
+
+  font-size: 28px;
+  font-weight: bold;
+
+  background: $primary;
+  color: $secondary-color;
+
+  cursor: pointer;
+  transition: $transition;
+
+  box-shadow: 0 0 18px rgba($primary, 0.45);
+
+  z-index: 1000;
+
+  &:hover {
+    transform: translateY(-6px) scale(1.05);
+    background: $hover-color;
+    box-shadow: 0 0 28px rgba($primary, 0.6);
+  }
+
+  &:active {
+    transform: scale(.95);
+  }
+}
+
+/* ===============================
+   PAGINATION — MODERN
+=================================*/
+
+.pagination {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.pagination button {
+  background: transparent;
+  border: none;
+
+  color: $text-soft;
+  font-size: 1rem;
+  font-weight: 500;
+
+  cursor: pointer;
+  position: relative;
+
+  transition: $transition;
+
+  &:hover {
+    color: $primary;
+  }
+
+  &.active {
+    color: $primary;
+    font-weight: 700;
+  }
+
+  &.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $primary;
+    border-radius: 2px;
+  }
+}
+
+/* ===============================
+   NOTIFICATION
+=================================*/
+
+.notification {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+
+  padding: 12px 22px;
+
+  background: $error-color;
+  color: $text-dark;
+
+  border-radius: $radius;
+  box-shadow: $shadow-sm;
+
+  animation: slideIn .35s ease, fadeOut 5s 1s forwards;
+}
+
+/* ===============================
+   ANIMATIONS
+=================================*/
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+/* ===============================
+   RESPONSIVE
+=================================*/
+
+@media (max-width: $small-screen) {
+
+  .events-page {
+    padding: 1.5rem;
+  }
+
+  .filter-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .event-list-container {
+    grid-template-columns: 1fr;
+  }
+}

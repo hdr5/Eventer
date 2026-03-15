@@ -1,0 +1,162 @@
+@import '../../assets/styles/variables';
+
+/* ===============================
+   CONTAINER
+================================ */
+
+.notification-container {
+  width: 100%;
+  max-width: 800px;
+  height: 75vh;
+  min-height: 500px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  background: $glass;
+  backdrop-filter: blur(25px);
+  border: 1px solid $border-glass;
+  border-radius: $radius;
+  box-shadow: $shadow-lg;
+
+  animation: fadeIn 0.5s ease;
+}
+
+/* ===============================
+   HEADER
+================================ */
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border-glass;
+
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $primary;
+  }
+
+  .toggle-unread {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: $text-soft;
+    cursor: pointer;
+    transition: $transition;
+
+    input[type="checkbox"] {
+      accent-color: $primary;
+      transform: scale(1.1);
+      cursor: pointer;
+    }
+
+    &:hover {
+      color: $text-main;
+    }
+  }
+}
+
+/* ===============================
+   CARDS
+================================ */
+
+.notification-card {
+  background: $bg-secondary;
+  border: 1px solid $border-glass;
+  border-radius: $radius;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  transition: $transition;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-md;
+    border-color: $primary;
+  }
+
+  &.unread {
+    border-left: 4px solid $primary;
+    background: $glass-strong;
+  }
+
+  .notification-message {
+    font-size: 0.95rem;
+    color: $text-main;
+    line-height: 1.5;
+  }
+
+  .notification-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: $text-soft;
+
+    .notification-time {
+      opacity: 0.7;
+    }
+
+    .mark-read-btn {
+      background: $primary;
+      border: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: $transition;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: $shadow-sm;
+      }
+    }
+  }
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+
+.no-notifications {
+  margin: auto;
+  color: $text-soft;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+/* ===============================
+   SCROLLBAR
+================================ */
+
+.notification-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notification-container::-webkit-scrollbar-thumb {
+  background: $primary;
+  border-radius: 20px;
+}
+
+/* ===============================
+   ANIMATION
+================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

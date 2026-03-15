@@ -1,0 +1,508 @@
+@import "../../assets/styles/variables";
+@import '../../assets/styles/variables';
+
+// // =======================
+// // MODAL OVERLAY
+// // =======================
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.25s ease forwards;
+}
+
+// // =======================
+// // MODAL CONTENT
+// // =======================
+.modal-content {
+  // background: #ffffff;
+  width: 92%;
+  max-width: 720px;
+  max-height: 92vh;
+  overflow-y: auto;
+  padding: 32px;
+  border-radius: 18px;
+  // box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: slideIn 0.25s ease forwards;
+  position: relative;
+
+  scrollbar-width: thin;
+}
+
+// // =======================
+// // ANIMATIONS
+// // =======================
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// // =======================
+// // FORM WRAPPER
+// // =======================
+// .event-form {
+//   display: flex;
+//   gap: 40px;
+//   padding: 10px;
+//   flex-wrap: wrap;
+
+//   @media (max-width: 1024px) {
+//     flex-direction: column;
+//     gap: 30px;
+//   }
+// }
+
+// // =======================
+// // STEPPER
+// // =======================
+// .stepper {
+//   width: 28%;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 22px;
+//   position: relative;
+
+//   @media (max-width: 1024px) {
+//     width: 100%;
+//     flex-direction: row;
+//     justify-content: space-between;
+//   }
+
+//   @media (max-width: 690px) {
+//     display: none;
+//   }
+// }
+
+// .step {
+//   display: flex;
+//   align-items: center;
+//   font-size: 15px;
+//   color: $text-muted;
+//   cursor: pointer;
+//   transition: all 0.25s ease;
+//   position: relative;
+//   padding-left: 25px;
+
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     left: 0;
+//     width: 14px;
+//     height: 14px;
+//     border-radius: 50%;
+//     background: $border-color;
+//     transition: all 0.25s ease;
+//   }
+
+//   &.active {
+//     color: $primary-color;
+//     font-weight: 600;
+//     transform: translateX(3px);
+
+//     &::before {
+//       background: $primary-color;
+//       box-shadow: 0 0 0 4px rgba($primary-color, 0.2);
+//     }
+//   }
+
+//   &.completed {
+//     color: $success-color;
+
+//     &::before {
+//       background: $success-color;
+//     }
+//   }
+// }
+
+// // =======================
+// // FORM CONTENT
+// // =======================
+// .form-content {
+//   flex: 1;
+//   background: $secondary-color;
+//   padding: 28px;
+//   border-radius: 14px;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   min-width: 300px;
+// }
+
+// // =======================
+// // FORM STEP
+// // =======================
+// .form-step {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 18px;
+
+//   .step-heading {
+//     font-size: 22px;
+//     font-weight: 700;
+//     color: $primary-color;
+//     margin-bottom: 10px;
+//   }
+// }
+
+// // =======================
+// // INPUTS
+// // =======================
+// .form-group {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 6px;
+
+//   label {
+//     font-size: 14px;
+//     font-weight: 600;
+//     color: $text-color;
+//   }
+
+//   input,
+//   select,
+//   textarea {
+//     padding: 12px;
+//     border: 1px solid $border-color;
+//     border-radius: 8px;
+//     font-size: 14px;
+//     background: white;
+//     transition: all 0.25s ease;
+
+//     &:focus {
+//       border-color: $primary-color;
+//       box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+//       outline: none;
+//     }
+//   }
+
+//   textarea {
+//     resize: vertical;
+//     min-height: 90px;
+//   }
+
+//   .error {
+//     color: $error-color;
+//     font-size: 12px;
+//   }
+// }
+
+// // =======================
+// // FOOTER
+// // =======================
+// .form-footer {
+//   display: flex;
+//   justify-content: space-between;
+//   padding-top: 20px;
+
+//   button {
+//     padding: 10px 22px;
+//     border-radius: 10px;
+//     font-weight: 600;
+//     cursor: pointer;
+//     transition: all 0.25s ease;
+//     border: none;
+
+//     &:first-child {
+//       background: transparent;
+//       color: $text-color;
+//     }
+
+//     &:last-child {
+//       background: $primary-color;
+//       color: white;
+
+//       &:hover {
+//         background: darken($primary-color, 6%);
+//         transform: translateY(-1px);
+//       }
+
+//       &:disabled {
+//         background: $border-color;
+//         cursor: not-allowed;
+//       }
+//     }
+//   }
+// }
+
+// // =======================
+// // CLOSE BUTTON
+// // =======================
+.close-button {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  background: transparent;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: $error-color;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $error-color;
+    transform: scale(1.15);
+  }
+}
+// .image-preview-container {
+//   margin-top: 15px;
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: 12px;
+// }
+
+// .image-preview img {
+//   width: 140px;
+//   height: 140px;
+//   object-fit: cover;
+//   border-radius: 8px;
+// }
+
+
+@import '../../assets/styles/variables';
+
+/* ===== EVENT FORM MODAL ===== */
+.event-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 30px;
+  background: $bg-secondary;
+  padding: 24px;
+  border-radius: $radius;
+  min-width: 320px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* ===== STEPPER ===== */
+.stepper {
+  flex: 0 0 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  @media (max-width: 1024px) {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-soft;
+    cursor: pointer;
+    position: relative;
+    padding-left: 28px;
+    transition: all 0.25s ease;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: $border-glass;
+      transition: all 0.25s ease;
+    }
+
+    &.active {
+      color: $primary;
+      &::before {
+        background: $primary;
+        box-shadow: 0 0 0 4px rgba($primary, 0.15);
+      }
+    }
+
+    &.completed {
+      color: $accent;
+      &::before {
+        background: $accent;
+      }
+    }
+  }
+}
+
+/* ===== FORM CONTENT ===== */
+.form-content {
+  flex: 1;
+  background: $bg-secondary;
+  padding: 28px;
+  border-radius: $radius;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== FORM STEP ===== */
+.form-step {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  .step-heading {
+    font-size: 20px;
+    font-weight: 700;
+    color: $primary;
+    margin-bottom: 10px;
+  }
+}
+
+/* ===== INPUTS ===== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-main;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 12px 14px;
+    border: 1px solid $border-glass;
+    border-radius: 12px;
+    font-size: 14px;
+    background: $glass;
+    transition: all 0.25s ease;
+
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.15);
+      outline: none;
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  .error {
+    color: $error-color;
+    font-size: 12px;
+  }
+}
+
+/* ===== FOOTER ===== */
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  button {
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: none;
+
+    &:first-child {
+      background: transparent;
+      color: $text-main;
+    }
+
+    &:last-child {
+      background: $primary;
+      color: white;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(139,92,246,0.4);
+      }
+
+      &:disabled {
+        background: $border-glass;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+/* ===== IMAGE UPLOAD ===== */
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.image-preview {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 140px;
+  height: 140px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+
+  button {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(255,255,255,0.8);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: $error-color;
+
+    &:hover {
+      background: $error-color;
+      color: white;
+    }
+  }
+} 
+
+.location-map {
+  margin-top: $spacing-md;
+  border-radius: $radius;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  border: 1px solid $border-glass;
+
+  .leaflet-container {
+    height: 320px;
+    width: 100%;
+  }
+}

@@ -1,0 +1,157 @@
+@import '../../../assets/styles/variables';
+
+.homepage {
+  background: $bg-main;
+  color: $text-main;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* HERO */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 900px;
+}
+
+.hero h1 {
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.hero span {
+  color: $primary;
+}
+
+.hero p {
+  font-size: 20px;
+  color: $text-soft;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+/* CTA */
+
+.cta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.primary-btn {
+  padding: 14px 34px;
+  border-radius: 50px;
+  background: $primary;
+  color: white;
+  font-weight: 600;
+  transition: $transition;
+  display: inline-block;
+}
+
+.primary-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(255,106,0,0.4);
+}
+
+.primary-btn.large {
+  padding: 16px 40px;
+  font-size: 18px;
+}
+
+.ghost-btn {
+  padding: 14px 34px;
+  border-radius: 50px;
+  border: 1px solid $primary;
+  color: $primary;
+  transition: $transition;
+}
+
+.ghost-btn:hover {
+  background: rgba(255,106,0,0.1);
+}
+
+/* FEATURES */
+
+.feature {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 140px 10%;
+  gap: 80px;
+  transition: all 1s ease;
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+.feature.reverse {
+  flex-direction: row-reverse;
+}
+
+.feature.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-text {
+  flex: 1;
+}
+
+.feature-text h2 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.feature-text p {
+  color: $text-soft;
+  line-height: 1.6;
+}
+
+.feature-image {
+  flex: 1;
+  border-radius: $radius;
+  overflow: hidden;
+  background: $bg-secondary;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.feature-image img {
+  width: 100%;
+  display: block;
+}
+
+/* BOTTOM CTA */
+
+.bottom-cta {
+  text-align: center;
+  padding: 160px 20px;
+  background: $bg-secondary;
+}
+
+.bottom-cta h2 {
+  font-size: 48px;
+  margin-bottom: 40px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1024px) {
+  .feature {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature.reverse {
+    flex-direction: column;
+  }
+}
