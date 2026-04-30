@@ -50,7 +50,7 @@ import { addNotification } from "../features/notifications/notificationActions";
 const useUserActions = (user) => {
   const dispatch = useDispatch();
   const favoriteEvents = useSelector(
-    (state) => state.auth.currentUser.favoriteEvents || []
+    (state) => state.auth.currentUser?.favoriteEvents || []
   );
 
   const toggleFavorite = (event) => {

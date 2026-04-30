@@ -54,7 +54,8 @@ export const login = async (req, res) => {
 
     res.cookie("jwt", token, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
       sameSite: "strict",
       maxAge: 3 * 60 * 60 * 1000
     });
@@ -70,65 +71,67 @@ export const login = async (req, res) => {
   }
 };
 export const register = async (req, res) => {
-try {
-const { name, email, password } = req.body;
+  try {
+    const { name, email, password } = req.body;
 
-if (!name || !email || !password) {
-return res.status(400).json({ message: 'Missing required fields' });
-}
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
 
-if (!/\S+@\S+\.\S+/.test(email)) {
-return res.status(400).json({ message: 'Invalid email address' });
-}
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      return res.status(400).json({ message: 'Invalid email address' });
+    }
 
-if (password.length < 2) {
-return res.status(400).json({ message: 'Password must be at least 2 characters long' });
-}
+    if (password.length < 6) {
+      return res.status(400).json({ message: 'Password must be at least 2 characters long' });
+    }
 
-const existingUser = await User.findOne({ email });
-if (existingUser) {
-return res.status(409).json({ message: 'User with this email already exists' });
-}
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(409).json({ message: 'User with this email already exists' });
+    }
 
-const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-const user = new User({ name, email, password: hashedPassword });
-await user.save();
+    const user = new User({ name, email, password: hashedPassword });
+    await user.save();
 
-const token = jwt.sign({ id: user._id, role: user.role }, jwtSecret, { expiresIn: '3h' });
-res.cookie('jwt', token, { httpOnly: true, secure: false, sameSite: 'strict', maxAge: 3600000 });
+    const token = jwt.sign({ id: user._id, role: user.role }, jwtSecret, { expiresIn: '3h' });
+    res.cookie('jwt', token, { httpOnly: true, secure: false, sameSite: 'strict', maxAge: 3600000 });
 
-return res.status(201).json({ message: 'Success!', token, user });
-} catch (error) {
-console.error('Error in register:', error);
-return res.status(500).json({ message: 'Internal Server Error' });
-}
+    return res.status(201).json({ message: 'Success!', token, user });
+  } catch (error) {
+    console.error('Error in register:', error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
 };
 
 export const logout = (req, res) => {
-res.clearCookie('jwt', { httpOnly: true, secure: false, sameSite: 'strict' });
-res.status(200).json({ message: 'Logged out successfully' });
+  res.clearCookie('jwt', { httpOnly: true, secure: false, sameSite: 'strict' });
+  res.status(200).json({ message: 'Logged out successfully' });
 };
 
 export const getSession = async (req, res) => {
-try {
-const token = req.cookies.jwt;
-if (!token) {
-return res.status(401).json({ message: 'Not authenticated' });
-}
+  try {
+    const token = req.cookies.jwt;
+    if (!token) {
+      return res.status(401).json({ message: 'Not authenticated' });
+    }
 
-const decoded = jwt.verify(token, jwtSecret);
-const user = await User.findById(decoded.id).select('-password');
+    const decoded = jwt.verify(token, jwtSecret);
+    const user = await User.findById(decoded.id).select('-password');
 
-if (!user) {
-return res.status(404).json({ message: 'User not found' });
-}
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
-res.status(200).json({ user });
-} catch (error) {
-console.error('Error in getSession:', error);
-res.status(401).json({ message: 'Invalid token' });
-}
+    const safeUser = { ...user.toObject(), password: undefined };
+
+    res.status(200).json({ user: safeUser });
+  } catch (error) {
+    console.error('Error in getSession:', error);
+    res.status(401).json({ message: 'Invalid token' });
+  }
 };
 
 // export const updateProfile = async (req, res) => {
@@ -217,49 +220,42 @@ export const updateProfile = async (req, res) => {
 };
 
 export const addFavorite = async (req, res) => {
-try {
-const userId = req.user.id;
-const { eventId } = req.params;
+  try {
+    const userId = req.user.id;
+    const { eventId } = req.params;
 
-const user = await User.findById(userId);
-if (!user) return res.status(404).json({ message: 'User not found' });
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
-if (user.favoriteEvents.includes(eventId)) {
-return res.status(400).json({ message: 'Already in favorites' });
-}
+    if (user?.favoriteEvents.includes(eventId)) {
+      return res.status(400).json({ message: 'Already in favorites' });
+    }
 
-user.favoriteEvents.push(eventId);
-await user.save();
+    user?.favoriteEvents.push(eventId);
+    await user.save();
 
-res.status(200).json({ favoriteEvents: user.favoriteEvents });
-} catch (err) {
-res.status(500).json({ message: 'Failed to add favorite' });
-}
+    res.status(200).json({ favoriteEvents: user?.favoriteEvents });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to add favorite' });
+  }
 };
 export const removeFavorite = async (req, res) => {
-try {
-const userId = req.user.id;
-const { eventId } = req.params;
+  try {
+    const userId = req.user.id;
+    const { eventId } = req.params;
 
-const user = await User.findByIdAndUpdate(
-userId,
-{ $pull: { favoriteEvents: eventId } },
-{ new: true }
-);
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { favoriteEvents: eventId } },
+      { new: true }
+    );
 
-if (!user) {
-return res.status(404).json({ message: 'User not found' });
-}
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
-res.status(200).json({ favoriteEvents: user.favoriteEvents });
-} catch (err) {
-res.status(500).json({ message: 'Failed to remove favorite' });
-}
+    res.status(200).json({ favoriteEvents: user?.favoriteEvents });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to remove favorite' });
+  }
 };
-
-// export const fetchCities = async () => {
-// const apiKey = 'YOUR_GOOGLE_API_KEY';
-// const response = await fetch(https://maps.googleapis.com/maps/api/place/autocomplete/json?input=ישראל&types=(cities)&key=${apiKey}&language=iw);
-// const data = await response.json();
-// console.log(data);
-// };

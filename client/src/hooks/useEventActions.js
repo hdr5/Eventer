@@ -11,7 +11,7 @@
 
 //   // registrations של האירוע
 //   const registrations = useSelector(
-//     (state) => state.registration.registrationsByEvent?.[event._id] || []
+//     (state) => state.registration.registrationsByEvent?.[event?._id] || []
 //   );
 
 //   // בדיקה אם המשתמש רשום
@@ -23,7 +23,7 @@
 
 //   // בדיקה אם האירוע נמצא במועדפים
 //   const favoriteEvents = user?.favoriteEvents || [];
-//   const isFavorite = favoriteEvents.includes(event._id);
+//   const isFavorite = favoriteEvents.includes(event?._id);
 
 //   const approvedCount = registrations.length;
 //   const maxParticipants = event.participants || 0;
@@ -37,22 +37,22 @@
 
 //   try {
 //     if (isRegistered) {
-//       await dispatch(cancelRegistration(registration._id)).unwrap();
+//       await dispatch(cancelRegistration(registration?._id)).unwrap();
 
 //       await dispatch(addNotification({
-//         userId: user._id,
+//         userId: user?._id,
 //         message: `You have successfully canceled your registration for "${event.name}"`,
 //         type: "event",
 //         read: false
 //       }));
 //     } else {
 //       await dispatch(registerForEvent({
-//         eventId: event._id,
-//         userId: user._id,
+//         eventId: event?._id,
+//         userId: user?._id,
 //       })).unwrap();
 
 //       await dispatch(addNotification({
-//         userId: user._id,
+//         userId: user?._id,
 //         message: `You have successfully registered for "${event.name}"`,
 //         type: "event",
 //         read: false
@@ -68,20 +68,20 @@
 //   if (!user) return;
 
 //   if (isFavorite) {
-//     dispatch(removeFavorite(event._id));
+//     dispatch(removeFavorite(event?._id));
 //     dispatch(
 //       addNotification({
-//         userId: user._id,
+//         userId: user?._id,
 //         message: `The event "${event.name}" was removed from your favorites`,
 //         type: "event",
 //         read: false,
 //       })
 //     );
 //   } else {
-//     dispatch(addFavorite(event._id));
+//     dispatch(addFavorite(event?._id));
 //     dispatch(
 //       addNotification({
-//         userId: user._id,
+//         userId: user?._id,
 //         message: `The event "${event.name}" was added to your favorites`,
 //         type: "event",
 //         read: false,
@@ -112,7 +112,7 @@ const useEventActions = (event, user) => {
   const dispatch = useDispatch();
 
   const registrations = useSelector(
-    (state) => state.registration.registrationsByEvent?.[event._id] || []
+    (state) => state.registration.registrationsByEvent?.[event?._id] || []
   );
 
   // בדיקה אם המשתמש רשום
@@ -124,31 +124,31 @@ const useEventActions = (event, user) => {
 
   // סטטוס אירוע
   const approvedCount = registrations.length;
-  const maxParticipants = event.participants || 0;
+  const maxParticipants = event?.participants || 0;
   const percentage = maxParticipants > 0 ? Math.min((approvedCount / maxParticipants) * 100, 100) : 0;
   const isFull = approvedCount >= maxParticipants && maxParticipants > 0;
 
   // טעינת הרשמות
   useEffect(() => {
-    dispatch(fetchRegistrationsForEvent(event._id));
-  }, [dispatch, event._id]);
+    dispatch(fetchRegistrationsForEvent(event?._id));
+  }, [dispatch, event?._id]);
 
   const handleRegister = useCallback(async () => {
     if (!user) return;
 
     try {
       if (isRegistered) {
-        await dispatch(cancelRegistration(registration._id)).unwrap();
+        await dispatch(cancelRegistration(registration?._id)).unwrap();
         await dispatch(addNotification({
-          userId: user._id,
+          userId: user?._id,
           message: `You have successfully canceled your registration for "${event.name}"`,
           type: "event",
           read: false,
         }));
       } else {
-        await dispatch(registerForEvent({ eventId: event._id, userId: user._id })).unwrap();
+        await dispatch(registerForEvent({ eventId: event?._id, userId: user?._id })).unwrap();
         await dispatch(addNotification({
-          userId: user._id,
+          userId: user?._id,
           message: `You have successfully registered for "${event.name}"`,
           type: "event",
           read: false,
@@ -157,7 +157,7 @@ const useEventActions = (event, user) => {
     } catch (err) {
       console.error("Registration error:", err);
     }
-  }, [dispatch, event._id, isRegistered, registration, user]);
+  }, [dispatch, event?._id, isRegistered, registration, user]);
 
   return {
     handleRegister,

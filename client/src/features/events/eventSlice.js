@@ -29,6 +29,23 @@ const eventSlice = createSlice({
         clearUploadedImages(state) {
             state.images = [];
         },
+        updateEventParticipants: (state, action) => {
+            const { eventId, actionType } = action.payload;
+
+            const event = state.events.find(e => e._id === eventId);
+            if (!event) return;
+
+            if (actionType === 'REGISTER') {
+                event.currentParticipants = (event.currentParticipants || 0) + 1;
+            }
+
+            if (actionType === 'CANCEL') {
+                event.currentParticipants = Math.max(
+                    0,
+                    (event.currentParticipants || 0) - 1
+                );
+            }
+        }
 
     },
     extraReducers: (builder) => {
@@ -73,7 +90,7 @@ const eventSlice = createSlice({
             })
             .addCase(deleteEvent.fulfilled, (state, action) => {
                 state.status = 'succeeded';
-                state.events = state.events.filter(event => event.id !== action.payload);
+                state.events = state.events.filter(event => event._id !== action.payload);
             })
             .addCase(deleteEvent.rejected, (state, action) => {
                 state.status = 'failed';
@@ -112,20 +129,10 @@ const eventSlice = createSlice({
 
                 // state.eventsById[updatedEventId] = updatedEvent;
             })
-            // .addCase(uploadEventImages.pending, (state) => {
-            //     state.uploadStatus = "loading";
-            // })
-            // .addCase(uploadEventImages.fulfilled, (state, action) => {
-            //     state.uploadStatus = "succeeded";
-            //     state.images = [...state.images, ...action.payload];
-            // })
-            // .addCase(uploadEventImages.rejected, (state, action) => {
-            //     state.uploadStatus = "failed";
-            //     state.error = action.payload;
-            // });
+
     },
 });
 
-export const { setEvents, setStatus, setError, clearUploadedImages } = eventSlice.actions;
+export const { setEvents, setStatus, setError, clearUploadedImages, updateEventParticipants  } = eventSlice.actions;
 
 export default eventSlice.reducer;

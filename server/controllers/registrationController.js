@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import { notifyClients } from '../server.js';
 import Registration from "../models/registration.js";
 import Event from "../models/event.js";
 import User from "../models/user.js";
@@ -71,58 +71,119 @@ export const getRegistrationsForEvent = async (req, res) => {
 //         res.status(500).json({ message: "Server error", error: error.message });
 //     }
 // };
+// export const registerForEvent = async (req, res) => {
+//     try {
+//         const registration = await Registration.create({ userId, eventId });
+//         (registration) => notifyClients({
+//             type: 'EVENT_UPDATED',
+//             payload: {
+//                 eventId,
+//                 action: 'REGISTER',
+//                 userId
+//             }
+//         });
+//         res.status(201).json(registration);
+//     } catch (err) {
+//         if (err.code === 11000) {
+//             return res.status(400).json({ message: "Already registered" });
+//         }
+//     }
+
+// };
+
 export const registerForEvent = async (req, res) => {
-  try {
+    try {
+        const { userId } = req.body;
+        const { eventId } = req.params;
 
-    const { userId } = req.body;
-    const { eventId } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(eventId) || !mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid event or user ID" });
+        }
 
-    const existing = await Registration.findOne({ userId, eventId });
+        const existing = await Registration.findOne({ userId, eventId });
+        if (existing) {
+            return res.status(400).json({ message: "Already registered" });
+        }
 
-    if (existing) {
-      return res.status(400).json({
-        message: "User already registered"
-      });
+        const registration = await Registration.create({ userId, eventId });
+
+        // ✅ REALTIME
+        notifyClients({
+            type: 'EVENT_UPDATED',
+            payload: {
+                eventId,
+                action: 'REGISTER',
+                userId
+            }
+        });
+
+        res.status(201).json(registration);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
     }
-
-    const registration = await Registration.create({
-      userId,
-      eventId,
-      status: "pending"
-    });
-
-    res.status(201).json(registration);
-
-  } catch (error) {
-
-    res.status(500).json({
-      message: "Server error",
-      error: error.message
-    });
-
-  }
 };
 
 // Cancel registration
+// export const cancelRegistration = async (req, res) => {
+//     try {
+//         const { registrationId } = req.params;
+//         const registration = await Registration.findById(registrationId);
+//         if (!registration) return res.status(404).json({ message: "Registration not found" });
+//         // registration.status = 'rejected'; 
+//         // Alternatively, can delete the registration
+//         await registration.save();
+//         // Remove registration from event and user 
+//         const event = await Event.findById(registration.eventId);
+//         const user = await User.findById(registration.userId);
+//         user.registeredEvents = user.registeredEvents.filter(eventId =>
+//             eventId.toString() !== registration.eventId);
+//         await event.save();
+//         await user.save();
+//         notifyClients({
+//   type: 'EVENT_UPDATED',
+//   payload: {
+//     eventId,
+//     action: 'CANCEL',
+//     userId
+//   }
+// });
+//         res.status(200).json({ message: "Registration cancelled", registration });
+//     }
+//     catch (error) {
+//         res.status(500).json({ message: "Server error", error });
+//     }
+// };
 export const cancelRegistration = async (req, res) => {
     try {
         const { registrationId } = req.params;
+
         const registration = await Registration.findById(registrationId);
-        if (!registration) return res.status(404).json({ message: "Registration not found" });
-        // registration.status = 'rejected'; 
-        // Alternatively, can delete the registration
-        await registration.save();
-        // Remove registration from event and user 
-        const event = await Event.findById(registration.eventId);
-        const user = await User.findById(registration.userId);
-        user.registeredEvents = user.registeredEvents.filter(eventId =>
-            eventId.toString() !== registration.eventId);
-        await event.save();
-        await user.save();
-        res.status(200).json({ message: "Registration cancelled", registration });
-    }
-    catch (error) {
-        res.status(500).json({ message: "Server error", error });
+        if (!registration) {
+            return res.status(404).json({ message: "Registration not found" });
+        }
+
+        const { eventId, userId } = registration;
+
+        // ✅ מחיקה אמיתית
+        await Registration.findByIdAndDelete(registrationId);
+
+        // ✅ REALTIME
+        notifyClients({
+            type: 'EVENT_UPDATED',
+            payload: {
+                eventId,
+                action: 'CANCEL',
+                userId
+            }
+        });
+
+        res.status(200).json({ message: "Registration cancelled" });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
     }
 };
 

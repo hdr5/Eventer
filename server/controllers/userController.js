@@ -37,8 +37,15 @@ export const createUser = async (req, res) => {
 
         await newUser.save();
 
-        notifyClients({ type: 'NEW_USER' });
-
+        // notifyClients({ type: 'NEW_USER' });
+        notifyClients({
+            type: 'NEW_USER',
+            payload: {
+                userId: newUser._id,
+                name: newUser.name,
+                email: newUser.email
+            }
+        });
         res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
         console.error(error);

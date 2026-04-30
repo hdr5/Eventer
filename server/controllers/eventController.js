@@ -207,9 +207,12 @@ export const getEventById = async (req, res) => {
 export const createEvent = async (req, res) => {
   try {
 
-    const keywords = req.body.keywords
-      ? req.body.keywords.split(",").map(k => k.trim())
-      : [];
+const keywords = req.body.keywords
+  ? req.body.keywords
+      .split(/[\s,;]+/)   // מפריד לפי רווחים, פסיקים ונקודה-פסיק
+      .map(k => k.trim())
+      .filter(Boolean)    // מסיר ריקים
+  : [];
 
     const newEvent = new Event({
       ...req.body,
@@ -217,7 +220,8 @@ export const createEvent = async (req, res) => {
       date: req.body.date ? new Date(req.body.date) : null,
       owner: req.user.id
     });
-
+console.log("BODY:", req.body);
+console.log("USER:", req.user);
     await newEvent.save();
 
     res.status(201).json(newEvent);

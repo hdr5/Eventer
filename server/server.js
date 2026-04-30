@@ -6,6 +6,7 @@ import authRouter from './routes/authRoutes.js';
 import eventsRouter from './routes/eventRoutes.js'
 import registrationRouter from './routes/registrationRoutes.js'
 import notificationRouter from "./routes/notificationRoutes.js";
+import locationRouter from "./routes/locationRoutes.js";
 
 import cors from 'cors';
 import { WebSocket, WebSocketServer } from 'ws';
@@ -33,15 +34,15 @@ const connectDB = async () => {
         //  למפתחים - שליחת התראה
         // sendErrorNotification(`MongoDB Connection Failed: ${error.message}`);
 
-       process.exit(1); // stop app if DB is not available
+        process.exit(1); // stop app if DB is not available
     }
 };
-const startServer= async () =>{
-await connectDB();
+const startServer = async () => {
+    await connectDB();
 }
 startServer();
 const corsOptions = {
-    origin: 'http://localhost:3000', 
+    origin: 'http://localhost:3000',
     credentials: true, // Allow cookies and credentials
 };
 //Allow all the domains -- just for dev
@@ -63,6 +64,7 @@ app.use('/api/events', authentication, eventsRouter);
 app.use('/api/registrations', authentication, registrationRouter);
 app.use('/api/uploads', authentication, uploadRouter);
 app.use('/api/notifications', authentication, notificationRouter);
+app.use('/api/location',authentication, authorizeRoles("producer", "admin"), locationRouter);
 
 const server = app.listen(3003, () => {
     console.log('http://localhost:3003');

@@ -1,7 +1,6 @@
 import { fetchEvents } from "../features/events/eventActions";
+import { updateEventParticipants } from "../features/events/eventSlice";
 import { fetchUsers } from "../features/user/userActions";
-import { setError as setUserError} from "../features/user/userSlice";
-import { setError as setEventError} from "../features/events/eventSlice";
 
 let socket = null;
 
@@ -19,20 +18,31 @@ export const connectWebSocket = (dispatch) => {
         dispatch(fetchUsers());
     };
 
-    socket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if (data.type === 'NEW_USER' || data.type === 'USER_DELETED' || data.type === 'USER_UPDATED') {
-            dispatch(fetchUsers());
-        }
-         if (data.type === 'NEW_EVENT' || data.type === 'EVENT_DELETED' || data.type === 'EVENT_UPDATED') {
-            dispatch(fetchEvents());
-        }
-    };
+socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
 
-    // socket.onclose = () => {
-    //     console.log('WebSocket closed');
-    //     socket = null;
-    // };
+    // USERS
+    if (
+        data.type === 'NEW_USER' ||
+        data.type === 'USER_DELETED' ||
+        data.type === 'USER_UPDATED'
+    ) {
+        dispatch(fetchUsers());
+    }
+
+    // EVENTS - heavy updates
+    if (
+        data.type === 'NEW_EVENT' ||
+        data.type === 'EVENT_DELETED'
+    ) {
+        dispatch(fetchEvents());
+    }
+
+    //EVENTS - smart update
+    if (data.type === 'EVENT_UPDATED') {
+        dispatch(updateEventParticipants(data.payload));
+    }
+};
 
     socket.onclose = (event) => {
         console.log('WebSocket closed:', event.reason || 'No reason provided');
@@ -46,9 +56,6 @@ export const connectWebSocket = (dispatch) => {
         }
     };
 
-    // socket.onerror = (error) => {
-    //     console.error('WebSocket error:', error);
-    // };
         socket.onerror = (error) => {
         console.error('WebSocket error:', error);
         socket = null;
@@ -61,15 +68,6 @@ export const connectWebSocket = (dispatch) => {
     
 };
 
-// export const closeWebSocket = () => {
-//    if (socket && socket.readyState !== WebSocket.CLOSED && socket.readyState !== WebSocket.CLOSING) {
-//         console.log('Closing WebSocket connection');
-//         socket.close();
-//     } else {
-//         console.log('WebSocket is already closed or closing');
-//     }
-//         socket = null;
-// };
 export const closeWebSocket = () => {
     if (socket && socket.readyState === WebSocket.OPEN) {
         console.log('Closing WebSocket connection');
