@@ -5,51 +5,20 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import "../assets/styles/eventForm.scss";
-import { eventCategories } from "../utils/eventCategories";
 import { createEvent, editEventAction } from "../features/events/eventActions";
 import { uploadImage } from "../features/upload/uploadActions";
 import LocationPicker from "./LocationPicker";
-import LocationSelector from "./LocationSelector";
+import { parseAddress } from "../utils/addressUtils";
 
 const EventForm = ({ event, closeModal }) => {
+  
   const [currentStep, setCurrentStep] = useState(1);
-  const [locations, setLocations] = useState([]);
   const [createdEventId, setCreatedEventId] = useState(event?._id || null);
   const [isImageStep, setIsImageStep] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [coordinates, setCoordinates] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const searchAddress = async (value) => {
-    if (!value) return;
-
-    const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${value}`
-    );
-
-    const data = await res.json();
-
-    if (data.length > 0) {
-      const lat = parseFloat(data[0].lat);
-      const lng = parseFloat(data[0].lon);
-
-      setCoordinates({ lat, lng });
-
-      formik.setFieldValue("location", data[0].display_name);
-    }
-  };
-  // ==========================
-  // Locations
-  // ==========================
-  useEffect(() => {
-    const fetchedLocations = [
-      { id: "1", name: "New York, Main Street 123" },
-      { id: "2", name: "Los Angeles, Sunset Boulevard 45" },
-      { id: "3", name: "San Francisco, Market Street 78" },
-    ];
-    setLocations(fetchedLocations);
-  }, []);
 
   // ==========================
   // Select images (preview only)
@@ -86,14 +55,10 @@ const EventForm = ({ event, closeModal }) => {
       images: [],
 
       location: {
-        venueName: "",
-        street: "",
-        buildingNumber: "",
-        city: "",
-        floor: "",
-        room: "",
         lat: null,
-        lng: null
+        lng: null,
+        address: "",
+        extraInfo: "",
       }
     },
 
@@ -104,20 +69,45 @@ const EventForm = ({ event, closeModal }) => {
       price: Yup.number().min(0).required("Price is required"),
       participants: Yup.number().min(2).required("Participants is required"),
     }),
+  
+
     onSubmit: async (values) => {
-      if (event) {
-        await dispatch(editEventAction({ id: event._id, updatedData: values }));
-        closeModal();
+      const loc = values.location;
+
+      if (loc?.lat == null || loc?.lng == null) {
+        alert("Please select a location on the map");
         return;
       }
 
-      const res = await dispatch(createEvent(values));
+      const { street, houseNumber, city } = parseAddress(loc.address);
+
+      const payload = {
+        ...values,
+
+        location: {
+          geo: {
+            type: "Point",
+            coordinates: [loc.lng, loc.lat],
+          },
+          address: {
+            street,
+            houseNumber,
+            city,
+            fullAddress: loc.address,
+          },
+          details: {
+            notes: loc.extraInfo || "",
+          },
+        },
+      };
+
+      const res = await dispatch(createEvent(payload));
 
       if (res.meta.requestStatus === "fulfilled") {
         setCreatedEventId(res.payload._id);
         setIsImageStep(true);
       }
-    },
+    }
   });
 
   const currentStepConfig = steps.find((s) => s.id === currentStep);
@@ -231,64 +221,13 @@ const EventForm = ({ event, closeModal }) => {
                     <label>{field}</label>
 
                     {field === "location" ? (
-
                       <div className="form-group">
 
-                        <label>Search location</label>
-                        <input
-                          placeholder="Search address"
-                          onChange={(e) => searchAddress(e.target.value)}
+                        <LocationPicker
+                          value={formik.values.location}
+                          onChange={(loc) => formik.setFieldValue("location", loc)}
                         />
-
-                        <label>Venue name</label>
-                        <input
-                          name="location.venueName"
-                          value={formik.values.location.venueName}
-                          onChange={formik.handleChange}
-                        />
-
-                        <label>Street</label>
-                        <input
-                          name="location.street"
-                          value={formik.values.location.street}
-                          onChange={formik.handleChange}
-                        />
-
-                        <label>Building number</label>
-                        <input
-                          name="location.buildingNumber"
-                          value={formik.values.location.buildingNumber}
-                          onChange={formik.handleChange}
-                        />
-
-                        <label>City</label>
-                        <input
-                          name="location.city"
-                          value={formik.values.location.city}
-                          onChange={formik.handleChange}
-                        />
-
-                        <label>Floor (optional)</label>
-                        <input
-                          name="location.floor"
-                          value={formik.values.location.floor}
-                          onChange={formik.handleChange}
-                        />
-
-                        <label>Room / Hall</label>
-                        <input
-                          name="location.room"
-                          value={formik.values.location.room}
-                          onChange={formik.handleChange}
-                        />
-
-                        <LocationSelector
-                          location={formik.values.location}
-                          setLocation={(loc) => formik.setFieldValue("location", loc)}
-                        />
-
                       </div>
-
                     ) : (
 
                       <input

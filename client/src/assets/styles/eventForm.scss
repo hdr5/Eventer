@@ -1,5 +1,4 @@
 @import "../../assets/styles/variables";
-@import '../../assets/styles/variables';
 
 // // =======================
 // // MODAL OVERLAY
@@ -54,193 +53,6 @@
 }
 
 // // =======================
-// // FORM WRAPPER
-// // =======================
-// .event-form {
-//   display: flex;
-//   gap: 40px;
-//   padding: 10px;
-//   flex-wrap: wrap;
-
-//   @media (max-width: 1024px) {
-//     flex-direction: column;
-//     gap: 30px;
-//   }
-// }
-
-// // =======================
-// // STEPPER
-// // =======================
-// .stepper {
-//   width: 28%;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 22px;
-//   position: relative;
-
-//   @media (max-width: 1024px) {
-//     width: 100%;
-//     flex-direction: row;
-//     justify-content: space-between;
-//   }
-
-//   @media (max-width: 690px) {
-//     display: none;
-//   }
-// }
-
-// .step {
-//   display: flex;
-//   align-items: center;
-//   font-size: 15px;
-//   color: $text-muted;
-//   cursor: pointer;
-//   transition: all 0.25s ease;
-//   position: relative;
-//   padding-left: 25px;
-
-//   &::before {
-//     content: '';
-//     position: absolute;
-//     left: 0;
-//     width: 14px;
-//     height: 14px;
-//     border-radius: 50%;
-//     background: $border-color;
-//     transition: all 0.25s ease;
-//   }
-
-//   &.active {
-//     color: $primary-color;
-//     font-weight: 600;
-//     transform: translateX(3px);
-
-//     &::before {
-//       background: $primary-color;
-//       box-shadow: 0 0 0 4px rgba($primary-color, 0.2);
-//     }
-//   }
-
-//   &.completed {
-//     color: $success-color;
-
-//     &::before {
-//       background: $success-color;
-//     }
-//   }
-// }
-
-// // =======================
-// // FORM CONTENT
-// // =======================
-// .form-content {
-//   flex: 1;
-//   background: $secondary-color;
-//   padding: 28px;
-//   border-radius: 14px;
-//   display: flex;
-//   flex-direction: column;
-//   gap: 20px;
-//   min-width: 300px;
-// }
-
-// // =======================
-// // FORM STEP
-// // =======================
-// .form-step {
-//   display: flex;
-//   flex-direction: column;
-//   gap: 18px;
-
-//   .step-heading {
-//     font-size: 22px;
-//     font-weight: 700;
-//     color: $primary-color;
-//     margin-bottom: 10px;
-//   }
-// }
-
-// // =======================
-// // INPUTS
-// // =======================
-// .form-group {
-//   display: flex;
-//   flex-direction: column;
-//   gap: 6px;
-
-//   label {
-//     font-size: 14px;
-//     font-weight: 600;
-//     color: $text-color;
-//   }
-
-//   input,
-//   select,
-//   textarea {
-//     padding: 12px;
-//     border: 1px solid $border-color;
-//     border-radius: 8px;
-//     font-size: 14px;
-//     background: white;
-//     transition: all 0.25s ease;
-
-//     &:focus {
-//       border-color: $primary-color;
-//       box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
-//       outline: none;
-//     }
-//   }
-
-//   textarea {
-//     resize: vertical;
-//     min-height: 90px;
-//   }
-
-//   .error {
-//     color: $error-color;
-//     font-size: 12px;
-//   }
-// }
-
-// // =======================
-// // FOOTER
-// // =======================
-// .form-footer {
-//   display: flex;
-//   justify-content: space-between;
-//   padding-top: 20px;
-
-//   button {
-//     padding: 10px 22px;
-//     border-radius: 10px;
-//     font-weight: 600;
-//     cursor: pointer;
-//     transition: all 0.25s ease;
-//     border: none;
-
-//     &:first-child {
-//       background: transparent;
-//       color: $text-color;
-//     }
-
-//     &:last-child {
-//       background: $primary-color;
-//       color: white;
-
-//       &:hover {
-//         background: darken($primary-color, 6%);
-//         transform: translateY(-1px);
-//       }
-
-//       &:disabled {
-//         background: $border-color;
-//         cursor: not-allowed;
-//       }
-//     }
-//   }
-// }
-
-// // =======================
 // // CLOSE BUTTON
 // // =======================
 .close-button {
@@ -259,22 +71,6 @@
     transform: scale(1.15);
   }
 }
-// .image-preview-container {
-//   margin-top: 15px;
-//   display: flex;
-//   flex-wrap: wrap;
-//   gap: 12px;
-// }
-
-// .image-preview img {
-//   width: 140px;
-//   height: 140px;
-//   object-fit: cover;
-//   border-radius: 8px;
-// }
-
-
-@import '../../assets/styles/variables';
 
 /* ===== EVENT FORM MODAL ===== */
 .event-form {
@@ -495,14 +291,97 @@
 } 
 
 .location-map {
-  margin-top: $spacing-md;
+  height: 320px;
   border-radius: $radius;
   overflow: hidden;
-  box-shadow: $shadow-sm;
+  border: 1px solid $border-glass;
+}
+.location-search-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: $radius;
+  border: 1px solid $border-color;
+  margin-bottom: 12px;
+}
+/* ===== LOCATION AUTOCOMPLETE ===== */
+.location-search-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.location-search-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid $border-glass;
+  background: white;
+  font-size: 14px;
+  transition: all 0.25s ease;
+
+  &:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.15);
+    outline: none;
+  }
+}
+
+/* Dropdown */
+.location-results {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  border: 1px solid $border-glass;
+  z-index: 1000;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+/* Each item */
+.location-item {
+  padding: 12px 14px;
+  font-size: 14px;
+  color: $text-main;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: linear-gradient(
+      90deg,
+      rgba($primary, 0.08),
+      rgba($accent, 0.08)
+    )
+  }
+
+  /* Highlight the first row */
+  &:first-child {
+    border-radius: 12px 12px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 12px 12px;
+  }
+}
+
+.location-results {
+  position: absolute;
+  top: calc(100% + 6px); // צמוד לשדה
+  left: 0;
+  width: 100%;
+
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
   border: 1px solid $border-glass;
 
-  .leaflet-container {
-    height: 320px;
-    width: 100%;
-  }
+  z-index: 9999; // חשוב!
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.location-search-input:focus + .location-results {
+  display: block;
 }

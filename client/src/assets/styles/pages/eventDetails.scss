@@ -241,8 +241,18 @@
 /* ================= BUTTON ================= */
 
 .register-btn {
-  align-self: center;
-  width: fit-content;
+  width: 100%;
+  padding: 1.1rem;
+  font-size: 1rem;
+
+  border-radius: 14px;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: $transition;
 
   padding: .9rem 2.5rem;
   border-radius: 999px;
@@ -275,14 +285,13 @@
       background: $glass-strong;
     }
   }
-}
 
-/* ================= FOOTER ================= */
-
-.event-footer {
-  text-align: center;
-  color: $text-muted;
-  font-size: .9rem;
+  &.disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
 }
 
 /* ================= MOBILE ================= */
@@ -302,6 +311,250 @@
   }
 
   .event-info {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/* ================= MAP CARD ================= */
+
+.map-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  padding: 1.5rem;
+  border-radius: $radius;
+
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid $border-light;
+
+  margin-top: 1.5rem;
+}
+
+/* HEADER */
+
+.map-header {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.map-title {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+  font-weight: 600;
+  font-size: 1rem;
+  color: $text-main;
+}
+
+.map-title svg {
+  color: $primary;
+}
+
+.map-address {
+  font-size: .9rem;
+  color: $text-soft;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+    display: flex;
+  align-items: center;
+  .details{
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+
+  span {
+    background: $background-light;
+    padding: .4rem .7rem;
+    border-radius: 999px;
+    font-size: .8rem;
+  }
+  }
+}
+
+/* MAP */
+
+.map-container {
+  position: relative;
+  height: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* overlay */
+
+.map-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+
+  padding: .4rem .8rem;
+  border-radius: 999px;
+
+  font-size: .8rem;
+  font-weight: 500;
+
+  box-shadow: $shadow-sm;
+
+  cursor: pointer;
+  z-index: 2;
+}
+
+.info-card {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+
+  padding: 1rem;
+  border-radius: 12px;
+
+  background: $bg-secondary;
+  border: 1px solid $border-light;
+
+  transition: $transition;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-sm;
+  }
+}
+
+.label {
+  font-size: 0.75rem;
+  color: $text-muted;
+}
+
+.value {
+  font-weight: 600;
+}
+
+.progress-bar {
+  height: 10px;
+}
+
+.event-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+//Left
+.event-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+//Right
+.event-side {
+  position: sticky;
+  top: 100px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.event-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.event-section {
+  background: white;
+  padding: 1.2rem;
+  border-radius: $radius;
+  border: 1px solid $border-light;
+
+  h3 {
+    margin-bottom: 0.6rem;
+    font-size: 1rem;
+  }
+
+  p {
+    color: $text-soft;
+    line-height: 1.6;
+  }
+}
+
+.details-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+
+  span {
+    background: $background-light;
+    padding: .4rem .7rem;
+    border-radius: 999px;
+    font-size: .8rem;
+  }
+}
+
+.map-container {
+  height: 260px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ===== FOOTER ===== */
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+flex-direction: row-reverse;
+  // button {
+  //   padding: 10px 24px;
+  //   border-radius: 12px;
+  //   font-weight: 600;
+  //   cursor: pointer;
+  //   transition: all 0.25s ease;
+  //   border: none;
+
+  //   &:first-child {
+  //     background: transparent;
+  //     color: $text-main;
+  //   }
+
+  //   &:last-child {
+  //     background: $primary;
+  //     color: white;
+
+  //     &:hover {
+  //       transform: translateY(-2px);
+  //       box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+  //     }
+
+  //     &:disabled {
+  //       background: $border-glass;
+  //       cursor: not-allowed;
+  //     }
+  //   }
+  // }
+}
+
+@media (max-width: 768px) {
+  .event-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .event-side {
+    position: static;
+  }
+
+  .event-info-grid {
     grid-template-columns: 1fr;
   }
 }
