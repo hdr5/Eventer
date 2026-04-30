@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosClient from "../../api/axiosClient";
 
 // uploadImage: target = "avatar" | "event", id = userId או eventId
 export const uploadImage = createAsyncThunk(
@@ -12,9 +12,9 @@ export const uploadImage = createAsyncThunk(
       const formData = new FormData();
       formData.append("image", file);
 
-      const url = `http://localhost:3003/api/uploads?type=${target}&id=${id}`;
+      const url = `/api/uploads?type=${target}&id=${id}`;
 
-      const response = await axios.post(url, formData, { withCredentials: true });
+      const response = await axiosClient.post(url, formData, { withCredentials: true });
 
       // החזרת secure_url שמגיע מ-Cloudinary
       return {
